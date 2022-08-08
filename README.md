@@ -1,6 +1,6 @@
 # Rain Classification
 
-This repository contains the R code related to the paper ``Stratiform and convective rain classification using machine learning models and Micro Rain Radar''.
+This repository contains the R code related to the paper "Stratiform and convective rain classification using machine learning models and Micro Rain Radar".
 
 
 More specifically, the R folder is structured as follows:
