@@ -259,20 +259,3 @@ for(i in 1:length(unique(testset$En))){
 }
 
 
-
-#---------------------------------------------------------------------------------------------------
-# some further shapley iml trials =)
-# further subset interpretations: how do misclassification explanations differ from overall explanations?
-library(featureImportance)
-features = names(X)
-shap.misclass.C = shapleyImportance(pred[[2]][[1]], data = getTaskData(task.pred)[ind.misclass.C,], features = features, measures = list(mlr::mmce, mlr::f1, mlr::bac), n.feat.perm = 10)
-shap.misclass.S = shapleyImportance(pred[[2]][[1]], data = getTaskData(task.pred)[ind.misclass.S,], features = features, measures = list(mlr::mmce, mlr::f1, mlr::bac), n.feat.perm = 10)
-shap.all = shapleyImportance(pred[[2]][[1]], data = getTaskData(task.pred), features = features, measures = list(mlr::mmce, mlr::f1, mlr::acc), n.feat.perm = 10)
-
-shap = rbind(shap.misclass.C$shapley.value, shap.misclass.S$shapley.value, shap.all$shapley.value, fill = TRUE)
-shap = cbind(shap[,1:3], c(rep("C", 42), rep("S", 42),rep("all",42)))
-ggplot(shap) + geom_bar(aes(x = feature, y = mmce, fill = V2), stat = "identity", position=position_dodge()) +
-  theme(axis.text.x=element_text(angle =45, size = 7, vjust = 0.5))
-
-
-save(shap.res, shap.misclass.C, shap.all, shap.misclass.S, file = "results/shapley.RData")
